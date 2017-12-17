@@ -63,7 +63,11 @@ int main(int argc, char *argv[]) {
 
     image_t rotated = rotate_90(*image, type);
     write_status write_status = to_bmp(outptr,&rotated);
-    free(rotated.data);
+
+    free(&rotated);
+    free(&image);
+    free(input);
+    free(outptr);
 
     switch (write_status) {
 
