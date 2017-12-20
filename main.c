@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
 
     image_t *image = malloc(sizeof(image_t));
     read_status error_code = from_bmp(input,image);
+    fclose(input);
 
     switch(error_code) {
 
@@ -48,12 +49,6 @@ int main(int argc, char *argv[]) {
     char type;
     printf("Type in which side it will be rotated (\"r\" or \"l\"): ");
     scanf("%c", &type);
-    if (type=='r') {
-        puts("rr");
-    }
-    else {
-        puts("ll");
-    }
     FILE *outptr = fopen(argv[1], "wb+");
     if (!outptr)
     {
@@ -61,13 +56,11 @@ int main(int argc, char *argv[]) {
         return 3;
     }
 
+
     image_t rotated = rotate_90(*image, type);
     write_status write_status = to_bmp(outptr,&rotated);
+    fclose(outptr);
 
-    free(&rotated);
-    free(&image);
-    free(input);
-    free(outptr);
 
     switch (write_status) {
 

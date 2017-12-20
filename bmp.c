@@ -22,7 +22,7 @@ read_status from_bmp(FILE* in,image_t *read) {
     read->height = header.biHeight;
     read->data = malloc(read-> width * abs(read->height)*sizeof(pixel_t));
     int padding = (4 - (read->width * sizeof(pixel_t)) % 4) % 4;
-    pixel_t* temp = read->data;
+    pixel_t *temp = read->data;
 
     for (int i = 0; i < abs(read->height) ; ++i) {
         for (int j = 0; j < read->width ; ++j) {
@@ -38,7 +38,7 @@ read_status from_bmp(FILE* in,image_t *read) {
 write_status to_bmp(FILE* out, image_t* img) {
     bmp_header header;
     header.bfType = 19778;
-    header.biWidth = abs(img->width);
+    header.biWidth = (uint32_t) abs(img->width);
     header.biHeight =  img->height;
     int padding = (4 - (header.biWidth * sizeof(pixel_t)) % 4) % 4;
     header.bOffBits = 54;
