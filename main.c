@@ -4,14 +4,10 @@
 #include <stdlib.h>
 #include "bmp.h"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
-    printf("%d", (int) sizeof(uint8_t));
-
-    if(argc!=2)
-    {
-        fprintf(stderr, "%s\n ", "Usage: source.bmp");
+    if(argc!=2){
+        fprintf(stderr, "%s\n", "Usage: source.bmp");
         return 1;
     }
 
@@ -29,28 +25,23 @@ int main(int argc, char *argv[])
     read_status error_code = from_bmp(input,image);
     fclose(input);
 
-    switch(error_code)
-    {
+    switch(error_code) {
 
-        case READ_OK :
-        {
+        case READ_OK : {
             puts("File was successfully read!");
         } break;
 
-        case READ_INVALID_BITS :
-        {
+        case READ_INVALID_BITS : {
             fprintf(stderr, "%s\n", "Invalid bits!");
             return 4;
         }
 
-        case READ_INVALID_HEADER :
-        {
+        case READ_INVALID_HEADER : {
             fprintf(stderr, "%s\n", "Invalid file header!");
             return 5;
         }
 
-        case READ_INVALID_SIGNATURE :
-        {
+        case READ_INVALID_SIGNATURE : {
             fprintf(stderr, "%s\n", "Invalid signature!");
             return 6;
         }
@@ -71,25 +62,20 @@ int main(int argc, char *argv[])
     fclose(outptr);
 
 
-    switch (write_status)
-    {
+    switch (write_status) {
 
-        case WRITE_OK :
-        {
+        case WRITE_OK : {
             puts("File was successfully written!");
-            if (type=='r')
-            {
+            if (type=='r') {
                 puts("Rotated on 90 degrees right.");
             }
-            else
-            {
+            else {
                 puts("Rotated on 90 degrees left.");
             }
             break;
         }
 
-        case WRITE_ERROR :
-        {
+        case WRITE_ERROR : {
             fprintf(stderr, "%s\n", "Error occurred while writing!");
             return 7;
         }
